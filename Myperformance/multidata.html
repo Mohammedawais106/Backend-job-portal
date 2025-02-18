@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi User Data Form</title>
+</head>
+<body>
+  <h1>Enter Details for 3 Users</h1>
+  <form id="userForm" action="http://localhost:2000/user/manydata" method="post">
+    <!-- User 1 -->
+    <h2>User 1</h2>
+    <label for="name1">Name:</label>
+    <input type="text" id="name1" name="name1" required><br>
+    <label for="email1">Email:</label>
+    <input type="email" id="email1" name="email1" required><br>
+    <label for="mobilenumber1">Mobile Number:</label>
+    <input type="text" id="mobilenumber1" name="mobilenumber1" required><br>
+    <label for="password1">Password:</label>
+    <input type="password" id="password1" name="password1" required><br>
+
+    <!-- User 2 -->
+    <h2>User 2</h2>
+    <label for="name2">Name:</label>
+    <input type="text" id="name2" name="name2" required><br>
+    <label for="email2">Email:</label>
+    <input type="email" id="email2" name="email2" required><br>
+    <label for="mobilenumber2">Mobile Number:</label>
+    <input type="text" id="mobilenumber2" name="mobilenumber2" required><br>
+    <label for="password2">Password:</label>
+    <input type="password" id="password2" name="password2" required><br>
+
+    <!-- User 3 -->
+    <h2>User 3</h2>
+    <label for="name3">Name:</label>
+    <input type="text" id="name3" name="name3" required><br>
+    <label for="email3">Email:</label>
+    <input type="email" id="email3" name="email3" required><br>
+    <label for="mobilenumber3">Mobile Number:</label>
+    <input type="text" id="mobilenumber3" name="mobilenumber3" required><br>
+    <label for="password3">Password:</label>
+    <input type="password" id="password3" name="password3" required><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('userForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      // Collecting data from the form
+      const users = [
+        {
+          name: document.getElementById('name1').value,
+          email: document.getElementById('email1').value,
+          mobilenumber: document.getElementById('mobilenumber1').value,
+          password: document.getElementById('password1').value,
+        },
+        {
+          name: document.getElementById('name2').value,
+          email: document.getElementById('email2').value,
+          mobilenumber: document.getElementById('mobilenumber2').value,
+          password: document.getElementById('password2').value,
+        },
+        {
+          name: document.getElementById('name3').value,
+          email: document.getElementById('email3').value,
+          mobilenumber: document.getElementById('mobilenumber3').value,
+          password: document.getElementById('password3').value,
+        }
+      ];
+
+      // Sending data to the server
+      try {
+        const response = await fetch('/your-api-endpoint', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(users),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert('Data submitted successfully!');
+        } else {
+          alert('Error while submitting data');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the form.');
+      }
+    });
+  </script>
+</body>
+</html>
